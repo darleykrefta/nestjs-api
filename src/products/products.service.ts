@@ -6,13 +6,17 @@ import { Product } from './product.model';
 export class ProductsService {
   products: Product[] = [];
 
-  insertProduct(title: string, description: string, price: number) {
+  insertProduct(
+    title: string,
+    helper: string,
+    description: string,
+    price: number,
+  ) {
     const id = Math.random().toString(); // yes, but no
 
-    const newProduct = new Product(id, title, description, price);
+    const newProduct = new Product(id, title, helper, description, price);
 
     this.products.push(newProduct);
-    console.log(this.products);
     return id;
   }
 
@@ -25,13 +29,22 @@ export class ProductsService {
     return { ...product };
   }
 
-  updateProduct(id: string, title: string, description: string, price: number) {
+  updateProduct(
+    id: string,
+    title: string,
+    helper: string,
+    description: string,
+    price: number,
+  ) {
     const [product, index] = this.findProduct(id);
-
     const productUpdated = { ...product };
 
     if (title) {
       productUpdated.title = title;
+    }
+
+    if (helper) {
+      productUpdated.helper = helper;
     }
 
     if (description) {
